@@ -6,20 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 288748dd48598f74d989551cc87877a4b17f7f923c89c09f39b7e0b30970c735
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=2.7.10
+    - python {{ python_min }}
     - pip
+    - setuptools
   run:
-    - python >=2.7.10
+    - python >={{ python_min }}
     - numpy >=1.7.0
     - scipy >=0.16.1
     - six >=1.10.0
@@ -30,6 +31,7 @@ test:
     - lspopt.lsp
   requires:
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
 
